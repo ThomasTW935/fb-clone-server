@@ -36,4 +36,4 @@ const createPost = async (req: any, res: any) => {
   }
 }
 
-export {}
+export { createPost }
