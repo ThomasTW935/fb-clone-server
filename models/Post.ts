@@ -7,6 +7,7 @@ const PostSchema = new Schema(
       ref: 'user',
     },
     content: { type: String, trim: true },
+    privacy: { type: String, enum: ['Only me', 'Public'], default: 'Public' },
   },
   { timestamps: true }
 )
