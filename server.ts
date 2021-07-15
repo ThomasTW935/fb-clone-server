@@ -17,8 +17,10 @@ mongoose
 
 //Routes
 const users = require('./routes/api/users')
+const posts = require('./routes/api/posts')
 
 app.use('/api/users', users)
+app.use('/api/posts', posts)
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
