@@ -10,13 +10,12 @@ const createPost = async (req: any, res: any) => {
     const createPost = new Post({
       content,
       privacy,
-      user: req.userId,
+      user: req.body.userId,
     })
 
     const savePost = await createPost.save()
 
     const post = await Post.findById(savePost.id).populate('user')
-
     const postData = {
       id: post.id,
       content: post.content,
@@ -32,7 +31,7 @@ const createPost = async (req: any, res: any) => {
       .json({ message: 'Post created successfully', post: postData })
   } catch (err) {
     console.log(err)
-    res.status(500).json({ error: 'Something went wrong' })
+    res.status(500).json({ error: 'Something went wrong when creating post' })
   }
 }
 
