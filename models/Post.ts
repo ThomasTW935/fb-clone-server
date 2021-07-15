@@ -4,7 +4,7 @@ const PostSchema = new Schema(
   {
     user: {
       type: Schema.Types.ObjectId,
-      ref: 'user',
+      ref: 'User',
     },
     content: { type: String, trim: true },
     privacy: { type: String, enum: ['Only me', 'Public'], default: 'Public' },
@@ -12,4 +12,4 @@ const PostSchema = new Schema(
   { timestamps: true }
 )
 
-module.exports = model('post', PostSchema)
+module.exports = model('Post', PostSchema)
