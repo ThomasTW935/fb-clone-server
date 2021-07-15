@@ -8,6 +8,6 @@ const UserSchema = new Schema({
   active: { type: Boolean, default: false },
 })
 
-const User = mongoose.model('user', UserSchema)
+const User = mongoose.model('User', UserSchema)
 
 module.exports = User
