@@ -1,13 +1,10 @@
-import mongoose from 'mongoose'
-
-const Schema = mongoose.Schema
+import { Schema, model } from 'mongoose'
 
 const UserSchema = new Schema({
-  name: { type: String, required: true },
+  first_name: { type: String, required: true },
+  last_name: { type: String, required: true },
   firebase_uid: { type: String, required: true },
   active: { type: Boolean, default: false },
 })
 
-const User = mongoose.model('User', UserSchema)
-
-module.exports = User
+module.exports = model('User', UserSchema)
