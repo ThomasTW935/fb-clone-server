@@ -1,4 +1,5 @@
 const Post = require('../../models/Post')
+import { formattedPostData } from '../../helper/formattedPostData'
 
 const createPost = async (req: any, res: any) => {
   const { content, privacy } = req.body
@@ -16,15 +17,7 @@ const createPost = async (req: any, res: any) => {
     const savePost = await createPost.save()
 
     const post = await Post.findById(savePost.id).populate('user')
-    const postData = {
-      id: post.id,
-      content: post.content,
-      privacy: post.privacy,
-      user: {
-        id: post.user._id,
-        name: post.user.name,
-      },
-    }
+    const postData = formattedPostData(post)
 
     res
       .status(200)
@@ -49,16 +42,7 @@ const editPost = async (req: any, res: any) => {
 
     await Post.updateOne({ _id: id }, editPost)
     const post = await Post.findById(id).populate('user')
-    const postData = {
-      _id: post.id,
-      content: post.content,
-      privacy: post.privacy,
-      user: {
-        _id: post.user._id,
-        name: post.user.name,
-      },
-      createdAt: post.createdAt,
-    }
+    const postData = formattedPostData(post)
 
     res
       .status(200)
