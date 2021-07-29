@@ -8,7 +8,7 @@ const app = express()
 app.use(express.json())
 
 // Database Configuration
-const db = process.env.MONGO_URI as string
+const db = process.env.MONGODB_URI as string
 
 mongoose
   .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
