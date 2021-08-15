@@ -18,7 +18,6 @@ const createPost = async (req: any, res: any) => {
 
     const post = await Post.findById(savePost.id).populate('user')
     const postData = formattedPostData(post)
-
     res
       .status(200)
       .json({ message: 'Post created successfully', post: postData })
