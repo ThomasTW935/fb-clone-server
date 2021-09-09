@@ -1,17 +1,22 @@
-import express from 'express'
-const router = express.Router()
+import express from 'express';
+const router = express.Router();
 
-import { fetchAllPost, fetchPostByUser } from '../../controllers/Post/FetchPost'
+import {
+  fetchAllPost,
+  fetchPostByUser,
+} from '../../controllers/Post/FetchPost';
 import {
   createPost,
   editPost,
   deletePost,
-} from '../../controllers/Post/PostActions'
+  reactPost,
+} from '../../controllers/Post/PostActions';
 
-router.post('/', createPost)
-router.put('/:id', editPost)
-router.delete('/:id', deletePost)
-router.get('/', fetchAllPost)
-router.get('/:userId', fetchPostByUser)
+router.post('/', createPost);
+router.put('/:id', editPost);
+router.put('/:postId/reactions', reactPost);
+router.delete('/:id', deletePost);
+router.get('/', fetchAllPost);
+router.get('/:userId', fetchPostByUser);
 
-module.exports = router
+module.exports = router;

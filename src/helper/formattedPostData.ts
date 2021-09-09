@@ -1,3 +1,5 @@
+import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
+
 export const formattedPostData = (post: any) => {
   return {
     _id: post._id,
@@ -8,6 +10,7 @@ export const formattedPostData = (post: any) => {
       first_name: post.user.first_name,
       last_name: post.user.last_name,
     },
+    reactions: post.reactions,
     createdAt: post.createdAt,
-  }
-}
+  };
+};
