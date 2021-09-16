@@ -4,16 +4,17 @@ import { isPrefixUnaryExpression } from 'typescript';
 import { formattedPostData } from '../../helper/formattedPostData';
 
 const createPost = async (req: any, res: any) => {
-  const { content, privacy } = req.body;
-  if (!content) {
+  const { content, privacy, userId, hasMedia } = req.body;
+  if (!content && !hasMedia) {
     return res.status(422).json({ error: 'Write some content' });
   }
+  if (!userId) return res.status(401).json({ error: 'User not found' });
 
   try {
     const createPost = new Post({
       content,
       privacy,
-      user: req.body.userId,
+      user: userId,
     });
 
     const savePost = await createPost.save();
@@ -53,6 +54,29 @@ const editPost = async (req: any, res: any) => {
     res.status(500).json({ error: 'Something went wrong when editing post' });
   }
 };
+const imagePost = async (req: any, res: any) => {
+  const { image } = req.body;
+  const { id } = req.params;
+  if (!image) {
+    return res.status(422).json({ error: 'No Image Found' });
+  }
+
+  try {
+    await Post.updateOne({ _id: id }, { image: image });
+    const post = await Post.findById(id).populate('user');
+    const postData = formattedPostData(post);
+
+    res
+      .status(200)
+      .json({ message: 'Image uploaded successfully', post: postData });
+  } catch (err) {
+    console.log(err);
+    res
+      .status(500)
+      .json({ error: 'Something went wrong when uploading post image' });
+  }
+};
+
 const deletePost = async (req: any, res: any) => {
   const { id } = req.params;
   try {
@@ -131,4 +155,4 @@ const reactPost = async (req: any, res: any) => {
   }
 };
 
-export { createPost, editPost, deletePost, reactPost };
+export { createPost, editPost, imagePost, deletePost, reactPost };
