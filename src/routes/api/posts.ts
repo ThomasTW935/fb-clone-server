@@ -10,10 +10,12 @@ import {
   editPost,
   deletePost,
   reactPost,
+  imagePost,
 } from '../../controllers/Post/PostActions';
 
 router.post('/', createPost);
 router.put('/:id', editPost);
+router.put('/:id/photo', imagePost);
 router.put('/:postId/reactions', reactPost);
 router.delete('/:id', deletePost);
 router.get('/', fetchAllPost);
